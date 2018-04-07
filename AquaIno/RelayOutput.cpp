@@ -10,15 +10,17 @@ RelayOutput::RelayOutput(uint8_t pin)
 
 void RelayOutput::ToggleState()
 {
+    Serial.print(State);
     if (State) 
     {
         digitalWrite(Pin, HIGH);
+        State = false;
     }
     else
     {
         digitalWrite(Pin, LOW);
+        State = true;
     }
-    State = !State;
 }
 
 bool RelayOutput::CheckTime(tmElements_t time)
