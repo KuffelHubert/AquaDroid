@@ -33,7 +33,7 @@ bool RelayOutput::CheckTime(tmElements_t time)
             State = false;
             return true;
         }
-        if (time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
+        else if (time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
         {
             digitalWrite(Pin, LOW);
             State = true;
@@ -41,6 +41,24 @@ bool RelayOutput::CheckTime(tmElements_t time)
         }
     }
     return false;
+}
+
+void RelayOutput::SetOffHour(uint8_t hour)
+{
+    TurnOffHour = hour;
+}
+
+void RelayOutput::SetOffMinute(uint8_t minute)
+{
+    TurnOffMinute = minute;
+}
+void RelayOutput::SetOnHour(uint8_t hour)
+{
+    TurnOnHour = hour;
+}
+void RelayOutput::SetOnMinute(uint8_t minute)
+{
+    TurnOnMinute = minute;
 }
 
 void RelayOutput::ToggleManualControl()

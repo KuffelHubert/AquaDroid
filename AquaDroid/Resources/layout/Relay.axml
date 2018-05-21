@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbars="none"
+    android:layout_weight="1">
+    <TableLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TableRow>
+            <TextView
+                android:text="Wyjście"
+                android:padding="3dip" />
+            <TextView
+                android:text="Ster A/R"
+                android:padding="3dip" />
+            <TextView
+                android:text="Włącz"
+                android:padding="3dip" />
+            <TextView
+                android:text="Wyłącz"
+                android:padding="3dip" />
+            <TextView
+                android:text="Przej"
+                android:padding="3dip" />
+            <TextView
+                android:text="Stan"
+                android:padding="3dip" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Grzałka"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster1" />
+            <EditText
+                android:padding="3dip"
+                android:id="@+id/wlgrzalka" />
+            <EditText
+                android:padding="3dip"
+                android:id="@+id/wylgrzalka" />
+            <TextView
+                android:text="---"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan1" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="PWM 1"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh2" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm2" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh2" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm2" />
+            </LinearLayout>
+            <EditText
+                android:padding="3dip"
+                android:id="@+id/etprz2" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan2" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="PWM 2"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh3" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm3" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh3" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm3" />
+            </LinearLayout>
+            <EditText
+                android:padding="3dip"
+                android:id="@+id/etprz3" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan3" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="1"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster4" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh4" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm4" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh4" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm4" />
+            </LinearLayout>
+            <TextView
+                android:text="---"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan4" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="2"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster5" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh5" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm5" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh5" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm5" />
+            </LinearLayout>
+            <TextView
+                android:text="---"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan5" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="3"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster6" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh6" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm6" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh6" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm6" />
+            </LinearLayout>
+            <TextView
+                android:text="---"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan6" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="4"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster7" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh7" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm7" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh7" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm7" />
+            </LinearLayout>
+            <TextView
+                android:text="---"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan7" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="5"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/ster8" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlh8" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwlm8" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylh8" />
+                <Spinner
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sprwylm8" />
+            </LinearLayout>
+            <TextView
+                android:text="---"
+                android:padding="3dip" />
+            <ToggleButton
+                android:padding="3dip"
+                android:id="@+id/stan8" />
+        </TableRow>
+    </TableLayout>
+</ScrollView>

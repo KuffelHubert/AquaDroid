@@ -2,6 +2,8 @@
 #include <TimeLib.h>
 class RelayOutput
 {
+
+public:
     uint8_t Pin;
     bool State;
     bool Manual;
@@ -9,11 +11,13 @@ class RelayOutput
     uint8_t TurnOnMinute;
     uint8_t TurnOffHour;
     uint8_t TurnOffMinute;
-
-public:
     RelayOutput(uint8_t pin);
     void ToggleState();
     void ToggleManualControl();
+    void SetOffHour(uint8_t hour);
+    void SetOffMinute(uint8_t hour);
+    void SetOnHour(uint8_t hour);
+    void SetOnMinute(uint8_t hour);
     bool CheckTime(tmElements_t time);
 };
 
