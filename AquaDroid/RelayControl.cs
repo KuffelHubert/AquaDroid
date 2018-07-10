@@ -44,35 +44,35 @@ namespace AquaDroid
             
             new ConnectBT().Execute();
 
-           System.Threading.Thread listener = new System.Threading.Thread(ListenForData);
-           listener.Start();
+           //System.Threading.Thread listener = new System.Threading.Thread(ListenForData);
+           //listener.Start();
         }
 
-        private bool _listenerInitialized = false;
-        private void ListenForData()
-        {
-            if (!_listenerInitialized)
-            {
-                _listenerInitialized = true;
-                while (true)
-                {
-                    try
-                    {
-                        bool bytesAvailable = btSocket.InputStream.IsDataAvailable();
-                        if (bytesAvailable)
-                        {
-                            byte[] bytes = new byte[200];
-                            btSocket.InputStream.Read(bytes, 0, bytes.Length);
-                            var data = Encoding.UTF8.GetString(bytes);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-                    System.Threading.Thread.Sleep(100);
-                }
-            }
-        }
+        //private bool _listenerInitialized = false;
+        //private void ListenForData()
+        //{
+        //    if (!_listenerInitialized)
+        //    {
+        //        _listenerInitialized = true;
+        //        while (true)
+        //        {
+        //            try
+        //            {
+        //                bool bytesAvailable = btSocket.InputStream.IsDataAvailable();
+        //                if (bytesAvailable)
+        //                {
+        //                    byte[] bytes = new byte[200];
+        //                    btSocket.InputStream.Read(bytes, 0, bytes.Length);
+        //                    var data = Encoding.UTF8.GetString(bytes);
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //            }
+        //            System.Threading.Thread.Sleep(100);
+        //        }
+        //    }
+        //}
 
         private void Disconnect(object sender, EventArgs e)
         {
@@ -135,18 +135,7 @@ namespace AquaDroid
                 {
                     //      Toast.MakeText(Application.Context, "Connected.", ToastLength.Long).Show();
                     isBtConnected = true;
-                    if (btSocket != null && isBtConnected == true)
-                    {
-                        try
-                        {
-                            var bytes = Encoding.UTF8.GetBytes("data1");
-                            btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                        }
-                        catch (Exception)
-                        {
-                            Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                        }
-                    }
+
                 }
                 //progress.Dismiss();
             }

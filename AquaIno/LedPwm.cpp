@@ -9,32 +9,49 @@ LedPwm::LedPwm(uint8_t pin, uint8_t pwmPin) : RelayOutput(pin)
 
 void LedPwm::CheckTime(tmElements_t time)
 {
-    if (RelayOutput::CheckTime(time))
+    if (!Manual)
     {
-        if (!transitioning)
+        if (time.Hour == TurnOffHour && time.Minute == TurnOffMinute)
         {
             transitioning = true;
         }
-    }
-    if (transitioning)
-    {
-        if (RelayOutput::State)
+        else if (time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
         {
-            PwmValue++;
+            transitioning = true;
         }
-        else
+        if (transitioning)
         {
-            PwmValue--;
+            stage++;
+            if (stage >= transitionPeriod)
+            {
+                stage = 0;
+                if (RelayOutput::State)
+                {
+                    PwmValue--;
+                }
+                else
+                {
+                    PwmValue++;
+                }
+                if (PwmValue <= 0)
+                {
+                    digitalWrite(Pin, HIGH);
+                    State = false;
+                    transitioning = false;
+                }
+                else if (PwmValue >= 255)
+                {
+                    digitalWrite(Pin, LOW);
+                    State = true;
+                    transitioning = false;
+                }
+                analogWrite(PwmPin, PwmValue);
+            }
         }
-        if (PwmValue <= 0 || PwmValue >= 255)
-        {
-            transitioning = false;
-        }
-        analogWrite(PwmPin, PwmValue);
     }
 }
 
 void LedPwm::SetTransition(float transition)
 {
-    transitionPeriod = transition;
+    transitionPeriod = (transition * 600) / 255;
 }

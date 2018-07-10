@@ -806,8 +806,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 0);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan01");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan00");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -822,8 +830,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 1);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan11");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan10");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -838,8 +854,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 2);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan21");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan20");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -854,8 +878,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 3);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan31");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan30");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -870,8 +902,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 4);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan41");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan40");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -886,8 +926,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 5);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan51");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan50");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -902,8 +950,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 6);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan61");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan60");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {
@@ -918,8 +974,16 @@ namespace AquaDroid
             {
                 try
                 {
-                    var bytes = Encoding.UTF8.GetBytes("stan" + 7);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    if (e.IsChecked)
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan71");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
+                    else
+                    {
+                        var bytes = Encoding.UTF8.GetBytes("stan70");
+                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    }
                 }
                 catch (Exception)
                 {

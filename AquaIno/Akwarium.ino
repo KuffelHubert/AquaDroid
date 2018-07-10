@@ -16,7 +16,7 @@ RelayOutput** Relays = new RelayOutput*[8];
 #define DS1302_GND_PIN 33
 #define DS1302_VCC_PIN 35
 
-DS1302RTC RTC(A4, A5, A6);
+DS1302RTC RTC(A5,A4,A3);
 // the setup function runs once when you press reset or power the board
 void setup()
 {
@@ -25,16 +25,16 @@ void setup()
     //pinMode(DS1302_GND_PIN, OUTPUT);
 
     //digitalWrite(DS1302_VCC_PIN, HIGH);
-    //pinMode(DS1302_VCC_PIN, OUTPUT);
-
-    Relays[0] = new RelayOutput(11);
-    Relays[1] = new LedPwm(2, 5);
-    Relays[2] = new LedPwm(3, 6);
-    Relays[3] = new RelayOutput(12);
-    Relays[4] = new RelayOutput(4);
-    Relays[5] = new RelayOutput(7);
-    Relays[6] = new RelayOutput(8);
-    Relays[7] = new RelayOutput(9);
+    pinMode(2, OUTPUT);
+    digitalWrite(2, LOW);
+    Relays[0] = new RelayOutput(3);
+    Relays[1] = new LedPwm(4, 5);
+    Relays[2] = new LedPwm(7, 6);
+    Relays[3] = new RelayOutput(8);
+    Relays[4] = new RelayOutput(9);
+    Relays[5] = new RelayOutput(12);
+    Relays[6] = new RelayOutput(10);
+    Relays[7] = new RelayOutput(11);
 
     Serial.begin(9600);
 }
@@ -97,26 +97,34 @@ void loop()
         }
         else if (action == "stan")
         {
-            Relays[index]->ToggleState();
+            int value = data.substring(5).toInt();
+            if (value == 0)
+            {
+                Relays[index]->ToggleState(false);
+            }
+            else
+            {
+                Relays[index]->ToggleState(true);
+            }
         }
     }
-    //Serial.print(RTC.get());
+    RTC.get();
 
-    //tmElements_t tm;
-    //if (!RTC.read(tm))
-    //{
-    //    for (size_t i = 0; i < 7; i++)
-    //    {
-    //        if (i != 1 && i != 2)
-    //        {
-    //            Relays[i]->CheckTime(tm);
-    //        }
-    //        else
-    //        {
-    //            ((LedPwm*)Relays[i])->CheckTime(tm);
-    //        }
-    //    }
-    //}
+    tmElements_t tm;
+    if (!RTC.read(tm))
+    {
+        for (size_t i = 0; i <= 7; i++)
+        {
+            if (i != 1 && i != 2)
+            {
+                Relays[i]->CheckTime(tm);
+            }
+            else
+            {
+                ((LedPwm*)Relays[i])->CheckTime(tm);
+            }
+        }
+    }
 
     delay(100);
 }

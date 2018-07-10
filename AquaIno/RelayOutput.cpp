@@ -8,24 +8,23 @@ RelayOutput::RelayOutput(uint8_t pin)
     pinMode(pin, OUTPUT);
 }
 
-void RelayOutput::ToggleState()
+void RelayOutput::ToggleState(bool value)
 {
-    Serial.print(State);
-    if (State) 
+    if (value) 
     {
-        digitalWrite(Pin, HIGH);
+        digitalWrite(Pin, LOW);
         State = false;
     }
     else
     {
-        digitalWrite(Pin, LOW);
+        digitalWrite(Pin, HIGH);
         State = true;
     }
 }
 
 bool RelayOutput::CheckTime(tmElements_t time)
 {
-    if (!Manual)
+    if (true)
     {
         if (time.Hour == TurnOffHour && time.Minute == TurnOffMinute)
         {

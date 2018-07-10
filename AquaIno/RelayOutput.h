@@ -12,7 +12,7 @@ public:
     uint8_t TurnOffHour;
     uint8_t TurnOffMinute;
     RelayOutput(uint8_t pin);
-    void ToggleState();
+    void ToggleState(bool value);
     void ToggleManualControl();
     void SetOffHour(uint8_t hour);
     void SetOffMinute(uint8_t hour);
