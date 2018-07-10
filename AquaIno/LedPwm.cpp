@@ -5,53 +5,72 @@
 LedPwm::LedPwm(uint8_t pin, uint8_t pwmPin) : RelayOutput(pin)
 {
     PwmPin = pwmPin;
+    pinMode(PwmPin, OUTPUT);
+    transitioning = false;
+    PwmValue = 0;
 }
 
 void LedPwm::CheckTime(tmElements_t time)
 {
-    if (!Manual)
+    if (true)
     {
-        if (time.Hour == TurnOffHour && time.Minute == TurnOffMinute)
+        if (!transitioning && time.Hour == TurnOffHour && time.Minute == TurnOffMinute)
         {
             transitioning = true;
+            nextTransition = GetSeconds(time);
+            State = true;
+            PwmValue = 0;
         }
-        else if (time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
+        else if (!transitioning && time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
         {
             transitioning = true;
+            nextTransition = GetSeconds(time);
+            digitalWrite(Pin, LOW);
+            State = false;
+            PwmValue = 180;
         }
         if (transitioning)
         {
-            stage++;
-            if (stage >= transitionPeriod)
+            long currentSeconds = GetSeconds(time);
+            if (currentSeconds >= nextTransition)
             {
-                stage = 0;
+                nextTransition = currentSeconds + transitionPeriod;
                 if (RelayOutput::State)
-                {
-                    PwmValue--;
-                }
-                else
                 {
                     PwmValue++;
                 }
+                else
+                {
+                    PwmValue--;
+                }
                 if (PwmValue <= 0)
                 {
-                    digitalWrite(Pin, HIGH);
-                    State = false;
                     transitioning = false;
                 }
-                else if (PwmValue >= 255)
+                else if (PwmValue >= 180)
                 {
-                    digitalWrite(Pin, LOW);
+                    digitalWrite(Pin, HIGH);
                     State = true;
                     transitioning = false;
                 }
+                Serial.println(PwmValue);
                 analogWrite(PwmPin, PwmValue);
             }
         }
     }
 }
 
-void LedPwm::SetTransition(float transition)
+long LedPwm::GetSeconds(tmElements_t time)
 {
-    transitionPeriod = (transition * 600) / 255;
+    long fromMonth = time.Month * 2629743;
+    long fromDay = time.Day * 86400;
+    long fromHour = time.Hour * 3600;
+    long fromMinute = time.Minute * 60;
+    return fromMonth + fromDay + fromHour + fromMinute + time.Second;
+}
+
+void LedPwm::SetTransition(int transition)
+{
+    transitionPeriod = ((transition * 60) / 180) + 1;
+    Serial.println(transitionPeriod);
 }

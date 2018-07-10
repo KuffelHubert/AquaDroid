@@ -13,8 +13,8 @@ using namespace std;
 
 RelayOutput** Relays = new RelayOutput*[8];
 
-#define DS1302_GND_PIN 33
-#define DS1302_VCC_PIN 35
+#define DS1302_GND_PIN A1
+#define DS1302_VCC_PIN A0
 
 DS1302RTC RTC(A5,A4,A3);
 // the setup function runs once when you press reset or power the board
@@ -25,8 +25,10 @@ void setup()
     //pinMode(DS1302_GND_PIN, OUTPUT);
 
     //digitalWrite(DS1302_VCC_PIN, HIGH);
-    pinMode(2, OUTPUT);
-    digitalWrite(2, LOW);
+    pinMode(DS1302_GND_PIN, OUTPUT);
+    pinMode(DS1302_VCC_PIN, OUTPUT);
+    digitalWrite(DS1302_VCC_PIN, HIGH);
+    digitalWrite(DS1302_GND_PIN, LOW);
     Relays[0] = new RelayOutput(3);
     Relays[1] = new LedPwm(4, 5);
     Relays[2] = new LedPwm(7, 6);
