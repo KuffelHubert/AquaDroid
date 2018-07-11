@@ -15,7 +15,7 @@ using System.IO;
 
 namespace AquaDroid
 {
-    [Activity(Label = "RelayControl")]
+    [Activity(Label = "RelayControl", ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public partial class RelayControl : Activity
     {
         ToggleButton[] toggleButtonsSter = new ToggleButton[8];
