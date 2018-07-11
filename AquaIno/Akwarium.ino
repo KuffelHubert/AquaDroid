@@ -57,21 +57,6 @@ void loop()
         }
         else if (action == "data")
         {
-            String sendData = "";
-            for (size_t i = 0; i < 8; i++)
-            {
-                    sendData += Relays[i]->Manual;
-                    sendData += Relays[i]->TurnOnHour;
-                    sendData += Relays[i]->TurnOnMinute;
-                    sendData += Relays[i]->TurnOffHour;
-                    sendData += Relays[i]->TurnOffMinute;
-                    if (i == 1 || i == 2)
-                    {
-                        sendData += ((LedPwm*)Relays[i])->transitionPeriod;
-                    }
-                    sendData += Relays[i]->State;
-            }
-            Serial.print(sendData);
         }
         else if (action == "tofm")
         {

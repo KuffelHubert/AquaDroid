@@ -49,6 +49,7 @@ void LedPwm::CheckTime(tmElements_t time)
                 }
                 else if (PwmValue >= 180)
                 {
+                    PwmValue = 0;
                     digitalWrite(Pin, HIGH);
                     State = true;
                     transitioning = false;
