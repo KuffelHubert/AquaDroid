@@ -71,7 +71,9 @@ namespace AquaDroid
                 spinnerWylaczM[6] = (Spinner)FindViewById(Resource.Id.sprwylm8);
 
                 editTextPrzej[0] = (EditText)FindViewById(Resource.Id.etprz2);
+                editTextPrzej[0].Text = Retrieveset("tran1").ToString();
                 editTextPrzej[1] = (EditText)FindViewById(Resource.Id.etprz3);
+                editTextPrzej[1].Text = Retrieveset("tran2").ToString();
                 grzalkaWlacz = (EditText)FindViewById(Resource.Id.wlgrzalka);
                 grzalkaWylacz = (EditText)FindViewById(Resource.Id.wylgrzalka);
 
@@ -160,8 +162,43 @@ namespace AquaDroid
 
                     spr.Adapter = adapter;
                 }
+
+
+                for (int i = 1; i <= 7; i++)
+                {
+                    spinnerWlaczH[i - 1].SetSelection(Retrieveset("tonh" + i));
+                }
+                for (int i = 1; i <= 7; i++)
+                {
+                    spinnerWylaczH[i - 1].SetSelection(Retrieveset("tofh" + i));
+                }
+                for (int i = 1; i <= 7; i++)
+                {
+                    spinnerWlaczM[i - 1].SetSelection(Retrieveset("tonm" + i));
+                }
+                for (int i = 1; i <= 7; i++)
+                {
+                    spinnerWylaczM[i - 1].SetSelection(Retrieveset("tofm" + i));
+                }
             }
         }
+
+        protected void Saveset(string name, int value)
+        {
+            var prefs = Application.Context.GetSharedPreferences("AquaDroid", FileCreationMode.Private);
+            var prefEditor = prefs.Edit();
+            prefEditor.PutInt(name, value);
+            prefEditor.Commit();
+        }
+
+        protected int Retrieveset(string name)
+        {
+            //retreive 
+            var prefs = Application.Context.GetSharedPreferences("AquaDroid", FileCreationMode.Private);
+            return prefs.GetInt(name, 0);
+
+        }
+
         private void RelayControl_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
             if (btSocket != null && isBtConnected == true)
@@ -171,6 +208,11 @@ namespace AquaDroid
                     var index = 0 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tran" + index.ToString() + editTextPrzej[0].Text);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tran1", int.Parse(editTextPrzej[0].Text));
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -188,6 +230,11 @@ namespace AquaDroid
                     var index = 1 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tran" + index.ToString() + editTextPrzej[1].Text);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tran" + index.ToString(), int.Parse(editTextPrzej[index - 1].Text));
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -205,6 +252,11 @@ namespace AquaDroid
                     var index = 0 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -222,6 +274,11 @@ namespace AquaDroid
                     var index = 6 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -239,6 +296,11 @@ namespace AquaDroid
                     var index = 1 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -256,6 +318,11 @@ namespace AquaDroid
                     var index = 2 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -273,6 +340,11 @@ namespace AquaDroid
                     var index = 3 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -290,6 +362,11 @@ namespace AquaDroid
                     var index = 4 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -307,6 +384,11 @@ namespace AquaDroid
                     var index = 5 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -324,6 +406,11 @@ namespace AquaDroid
                     var index = 0 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -341,6 +428,11 @@ namespace AquaDroid
                     var index = 1 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -358,6 +450,11 @@ namespace AquaDroid
                     var index = 2 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -375,6 +472,11 @@ namespace AquaDroid
                     var index = 3 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -392,6 +494,11 @@ namespace AquaDroid
                     var index = 4 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -409,6 +516,11 @@ namespace AquaDroid
                     var index = 5 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -426,6 +538,11 @@ namespace AquaDroid
                     var index = 6 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -443,6 +560,11 @@ namespace AquaDroid
                     var index = 0 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -460,6 +582,11 @@ namespace AquaDroid
                     var index = 1 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -477,6 +604,11 @@ namespace AquaDroid
                     var index = 2 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -494,6 +626,11 @@ namespace AquaDroid
                     var index = 3 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -511,6 +648,11 @@ namespace AquaDroid
                     var index = 4 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -528,6 +670,11 @@ namespace AquaDroid
                     var index = 5 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -545,6 +692,11 @@ namespace AquaDroid
                     var index = 6 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -562,6 +714,11 @@ namespace AquaDroid
                     var index = 0 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -579,6 +736,11 @@ namespace AquaDroid
                     var index = 1 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -596,6 +758,11 @@ namespace AquaDroid
                     var index = 2 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -613,6 +780,11 @@ namespace AquaDroid
                     var index = 3 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -630,6 +802,11 @@ namespace AquaDroid
                     var index = 4 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -647,6 +824,11 @@ namespace AquaDroid
                     var index = 5 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
@@ -664,6 +846,11 @@ namespace AquaDroid
                     var index = 6 + 1;
                     var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
                     btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
+                    }
+                    catch { }
                 }
                 catch (Exception)
                 {
