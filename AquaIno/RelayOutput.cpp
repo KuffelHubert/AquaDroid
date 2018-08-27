@@ -26,20 +26,68 @@ bool RelayOutput::CheckTime(tmElements_t time)
 {
     if (true)
     {
-        if (time.Hour == TurnOffHour && time.Minute == TurnOffMinute)
+        if (TurnOffHour > TurnOnHour)
         {
-            digitalWrite(Pin, HIGH);
-            State = false;
-            return true;
+            if (time.Hour > TurnOnHour && time.Hour < TurnOffHour)
+            {
+                Wlacz();
+            }
+            else
+            {
+                Wylacz();
+            }
         }
-        else if (time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
+        else if (TurnOffHour < TurnOnHour)
         {
-            digitalWrite(Pin, LOW);
-            State = true;
-            return true;
+            if (time.Hour > TurnOnHour || time.Hour < TurnOnHour)
+            {
+                Wlacz();
+            }
+            else
+            {
+                Wylacz();
+            }
+        }
+        else if (TurnOffHour == TurnOnHour)
+        {
+            if (TurnOffMinute > TurnOffMinute)
+            {
+                if (time.Hour > TurnOffHour || time.Hour < TurnOnHour)
+                {
+                    Wylacz();
+                }
+                else
+                {
+                    if (time.Minute < TurnOnMinute || time.Minute > TurnOffMinute)
+                    {
+                        Wylacz();
+                    }
+                    else
+                    {
+                        Wlacz();
+                    }
+                }
+            }
         }
     }
     return false;
+}
+
+bool RelayOutput::Wlacz()
+{
+    Serial.println("wlaczam");
+    digitalWrite(Pin, LOW);
+    State = true;
+    return true;
+}
+
+bool RelayOutput::Wylacz()
+{
+    Serial.println("wylaczam");
+
+    digitalWrite(Pin, HIGH);
+    State = false;
+    return true;
 }
 
 void RelayOutput::SetOffHour(uint8_t hour)

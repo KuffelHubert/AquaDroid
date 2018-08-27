@@ -13,6 +13,8 @@ public:
     long nextTransition;
     LedPwm(uint8_t pin, uint8_t pwm);
     void CheckTime(tmElements_t time);
+    void Wylacz(const tmElements_t &time);
+    void Wlacz(const tmElements_t &time);
     void SetTransition(int transition);
     long GetSeconds(tmElements_t time);
 };

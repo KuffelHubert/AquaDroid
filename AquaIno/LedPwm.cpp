@@ -8,26 +8,59 @@ LedPwm::LedPwm(uint8_t pin, uint8_t pwmPin) : RelayOutput(pin)
     pinMode(PwmPin, OUTPUT);
     transitioning = false;
     PwmValue = 0;
+    digitalWrite(Pin, HIGH);
+    State = true;
 }
 
 void LedPwm::CheckTime(tmElements_t time)
 {
     if (true)
     {
-        if (!transitioning && time.Hour == TurnOffHour && time.Minute == TurnOffMinute)
+        if (!transitioning)
         {
-            transitioning = true;
-            nextTransition = GetSeconds(time);
-            State = true;
-            PwmValue = 0;
-        }
-        else if (!transitioning && time.Hour == TurnOnHour && time.Minute == TurnOnMinute)
-        {
-            transitioning = true;
-            nextTransition = GetSeconds(time);
-            digitalWrite(Pin, LOW);
-            State = false;
-            PwmValue = 180;
+            if (TurnOffHour > TurnOnHour)
+            {
+                if (time.Hour > TurnOnHour && time.Hour < TurnOffHour)
+                {
+                    Wlacz(time);
+                }
+                else
+                {
+                    Wylacz(time);
+                }
+            }
+            else if (TurnOffHour < TurnOnHour)
+            {
+                if (time.Hour > TurnOnHour || time.Hour < TurnOnHour)
+                {
+                    Wlacz(time);
+                }
+                else
+                {
+                    Wylacz(time);
+                }
+            }
+            else if(TurnOffHour == TurnOnHour)
+            {
+                if (TurnOffMinute > TurnOffMinute)
+                {
+                    if (time.Hour > TurnOffHour || time.Hour < TurnOnHour)
+                    {
+                        Wylacz(time);
+                    }
+                    else
+                    {
+                        if (time.Minute < TurnOnMinute || time.Minute > TurnOffMinute)
+                        {
+                            Wylacz(time);
+                        }
+                        else
+                        {
+                            Wlacz(time);
+                        }
+                    }
+                }
+            }
         }
         if (transitioning)
         {
@@ -58,6 +91,29 @@ void LedPwm::CheckTime(tmElements_t time)
                 analogWrite(PwmPin, PwmValue);
             }
         }
+    }
+}
+
+void LedPwm::Wylacz(const tmElements_t &time)
+{
+    if (State == false)
+    {
+        transitioning = true;
+        nextTransition = GetSeconds(time);
+        State = true;
+        PwmValue = 0;
+    }
+}
+
+void LedPwm::Wlacz(const tmElements_t &time)
+{
+    if (State == true)
+    {
+        transitioning = true;
+        nextTransition = GetSeconds(time);
+        digitalWrite(Pin, LOW);
+        State = false;
+        PwmValue = 180;
     }
 }
 

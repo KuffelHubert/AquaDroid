@@ -19,5 +19,7 @@ public:
     void SetOnHour(uint8_t hour);
     void SetOnMinute(uint8_t hour);
     bool CheckTime(tmElements_t time);
+    bool Wlacz();
+    bool Wylacz();
 };
 
