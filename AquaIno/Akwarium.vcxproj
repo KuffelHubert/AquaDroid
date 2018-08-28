@@ -86,12 +86,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Heater.h" />
     <ClInclude Include="LedPwm.h" />
     <ClInclude Include="RelayOutput.h" />
     <ClInclude Include="__vm\.Akwarium.vsarduino.h" />
     <ClInclude Include="__vm\.AquaIno.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Heater.cpp" />
     <ClCompile Include="LedPwm.cpp" />
     <ClCompile Include="RelayOutput.cpp" />
   </ItemGroup>

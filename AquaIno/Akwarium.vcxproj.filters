@@ -30,12 +30,18 @@
     <ClInclude Include="__vm\.AquaIno.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Heater.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RelayOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LedPwm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Heater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
