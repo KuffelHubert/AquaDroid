@@ -13,9 +13,6 @@
                 android:text="Wyjście"
                 android:padding="3dip" />
             <TextView
-                android:text="Ster A/R"
-                android:padding="3dip" />
-            <TextView
                 android:text="Włącz"
                 android:padding="3dip" />
             <TextView
@@ -24,17 +21,11 @@
             <TextView
                 android:text="Przej"
                 android:padding="3dip" />
-            <TextView
-                android:text="Stan"
-                android:padding="3dip" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="Grzałka"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster1" />
             <EditText
                 android:padding="3dip"
                 android:id="@+id/wlgrzalka" />
@@ -44,17 +35,11 @@
             <TextView
                 android:text="---"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan1" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="PWM 1"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster2" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -94,17 +79,11 @@
             <EditText
                 android:padding="3dip"
                 android:id="@+id/etprz2" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan2" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="PWM 2"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster3" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -144,17 +123,11 @@
             <EditText
                 android:padding="3dip"
                 android:id="@+id/etprz3" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan3" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="1"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster4" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -194,17 +167,11 @@
             <TextView
                 android:text="---"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan4" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="2"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster5" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -244,17 +211,11 @@
             <TextView
                 android:text="---"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan5" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="3"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster6" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -294,17 +255,11 @@
             <TextView
                 android:text="---"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan6" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="4"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster7" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -344,17 +299,11 @@
             <TextView
                 android:text="---"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan7" />
         </TableRow>
         <TableRow>
             <TextView
                 android:text="5"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/ster8" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -394,9 +343,6 @@
             <TextView
                 android:text="---"
                 android:padding="3dip" />
-            <ToggleButton
-                android:padding="3dip"
-                android:id="@+id/stan8" />
         </TableRow>
     </TableLayout>
 </ScrollView>

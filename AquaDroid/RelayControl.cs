@@ -18,7 +18,6 @@ namespace AquaDroid
     [Activity(Label = "RelayControl", ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public partial class RelayControl : Activity
     {
-        ToggleButton[] toggleButtonsSter = new ToggleButton[8];
         EditText grzalkaWlacz;
         EditText grzalkaWylacz;
         Spinner[] spinnerWlaczH = new Spinner[7];
@@ -26,7 +25,6 @@ namespace AquaDroid
         Spinner[] spinnerWylaczH = new Spinner[7];
         Spinner[] spinnerWylaczM = new Spinner[7];
         EditText[] editTextPrzej = new EditText[2];
-        ToggleButton[] toggleButtonsStan = new ToggleButton[8];
 
         static String address = null;
         static BluetoothAdapter myBluetooth = null;

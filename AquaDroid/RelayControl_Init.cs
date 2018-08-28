@@ -20,23 +20,6 @@ namespace AquaDroid
             if (!_initialized)
             {
                 _initialized = true;
-                toggleButtonsSter[0] = (ToggleButton)FindViewById(Resource.Id.ster1);
-                toggleButtonsSter[1] = (ToggleButton)FindViewById(Resource.Id.ster2);
-                toggleButtonsSter[2] = (ToggleButton)FindViewById(Resource.Id.ster3);
-                toggleButtonsSter[3] = (ToggleButton)FindViewById(Resource.Id.ster4);
-                toggleButtonsSter[4] = (ToggleButton)FindViewById(Resource.Id.ster5);
-                toggleButtonsSter[5] = (ToggleButton)FindViewById(Resource.Id.ster6);
-                toggleButtonsSter[6] = (ToggleButton)FindViewById(Resource.Id.ster7);
-                toggleButtonsSter[7] = (ToggleButton)FindViewById(Resource.Id.ster8);
-
-                toggleButtonsStan[0] = (ToggleButton)FindViewById(Resource.Id.stan1);
-                toggleButtonsStan[1] = (ToggleButton)FindViewById(Resource.Id.stan2);
-                toggleButtonsStan[2] = (ToggleButton)FindViewById(Resource.Id.stan3);
-                toggleButtonsStan[3] = (ToggleButton)FindViewById(Resource.Id.stan4);
-                toggleButtonsStan[4] = (ToggleButton)FindViewById(Resource.Id.stan5);
-                toggleButtonsStan[5] = (ToggleButton)FindViewById(Resource.Id.stan6);
-                toggleButtonsStan[6] = (ToggleButton)FindViewById(Resource.Id.stan7);
-                toggleButtonsStan[7] = (ToggleButton)FindViewById(Resource.Id.stan8);
 
                 spinnerWlaczH[0] = (Spinner)FindViewById(Resource.Id.sprwlh2);
                 spinnerWlaczH[1] = (Spinner)FindViewById(Resource.Id.sprwlh3);
@@ -75,25 +58,9 @@ namespace AquaDroid
                 editTextPrzej[1] = (EditText)FindViewById(Resource.Id.etprz3);
                 editTextPrzej[1].Text = Retrieveset("tran2").ToString();
                 grzalkaWlacz = (EditText)FindViewById(Resource.Id.wlgrzalka);
+                grzalkaWlacz.Text = Retrieveset("temo").ToString();
                 grzalkaWylacz = (EditText)FindViewById(Resource.Id.wylgrzalka);
-
-                toggleButtonsStan[0].CheckedChange += RelayControl_CheckedChange1;
-                toggleButtonsStan[1].CheckedChange += RelayControl_CheckedChange2;
-                toggleButtonsStan[2].CheckedChange += RelayControl_CheckedChange3;
-                toggleButtonsStan[3].CheckedChange += RelayControl_CheckedChange4;
-                toggleButtonsStan[4].CheckedChange += RelayControl_CheckedChange5;
-                toggleButtonsStan[5].CheckedChange += RelayControl_CheckedChange6;
-                toggleButtonsStan[6].CheckedChange += RelayControl_CheckedChange7;
-                toggleButtonsStan[7].CheckedChange += RelayControl_CheckedChange8;
-
-                toggleButtonsSter[0].CheckedChange += RelayControl_CheckedChange9;
-                toggleButtonsSter[1].CheckedChange += RelayControl_CheckedChange10;
-                toggleButtonsSter[2].CheckedChange += RelayControl_CheckedChange11;
-                toggleButtonsSter[3].CheckedChange += RelayControl_CheckedChange12;
-                toggleButtonsSter[4].CheckedChange += RelayControl_CheckedChange13;
-                toggleButtonsSter[5].CheckedChange += RelayControl_CheckedChange14;
-                toggleButtonsSter[6].CheckedChange += RelayControl_CheckedChange15;
-                toggleButtonsSter[7].CheckedChange += RelayControl_CheckedChange16;
+                grzalkaWylacz.Text = Retrieveset("temf").ToString();
 
                 spinnerWlaczH[0].ItemSelected += RelayControl_ItemSelected;
                 spinnerWlaczH[1].ItemSelected += RelayControl_ItemSelected1;
@@ -129,6 +96,9 @@ namespace AquaDroid
 
                 editTextPrzej[0].TextChanged += RelayControl_TextChanged;
                 editTextPrzej[1].TextChanged += RelayControl_TextChanged1;
+
+                grzalkaWlacz.TextChanged += GrzalkaWlacz_TextChanged;
+                grzalkaWylacz.TextChanged += GrzalkaWylacz_TextChanged;
 
 
                 foreach (var spr in spinnerWlaczH)
@@ -179,6 +149,50 @@ namespace AquaDroid
                 for (int i = 1; i <= 7; i++)
                 {
                     spinnerWylaczM[i - 1].SetSelection(Retrieveset("tofm" + i));
+                }
+            }
+        }
+
+        private void GrzalkaWylacz_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            if (btSocket != null && isBtConnected == true)
+            {
+                try
+                {
+                    var index = 0;
+                    var bytes = Encoding.UTF8.GetBytes("temf" + index.ToString() + grzalkaWylacz.Text);
+                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("temf" + index.ToString(), int.Parse(grzalkaWylacz.Text));
+                    }
+                    catch { }
+                }
+                catch (Exception)
+                {
+                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
+                }
+            }
+        }
+
+        private void GrzalkaWlacz_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            if (btSocket != null && isBtConnected == true)
+            {
+                try
+                {
+                    var index = 0;
+                    var bytes = Encoding.UTF8.GetBytes("temo" + index.ToString() + grzalkaWlacz.Text);
+                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
+                    try
+                    {
+                        Saveset("temo" + index.ToString(), int.Parse(grzalkaWlacz.Text));
+                    }
+                    catch { }
+                }
+                catch (Exception)
+                {
+                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
                 }
             }
         }
@@ -851,326 +865,6 @@ namespace AquaDroid
                         Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
                     }
                     catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange9(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 0);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange10(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 1);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange11(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 2);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange12(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 3);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange13(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 4);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange14(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 5);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange15(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 6);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange16(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var bytes = Encoding.UTF8.GetBytes("ster" + 7);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange1(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan01");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan00");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange2(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan11");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan10");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange3(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan21");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan20");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange4(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan31");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan30");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange5(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan41");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan40");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange6(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan51");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan50");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange7(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan61");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan60");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_CheckedChange8(object sender, CompoundButton.CheckedChangeEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    if (e.IsChecked)
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan71");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
-                    else
-                    {
-                        var bytes = Encoding.UTF8.GetBytes("stan70");
-                        btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    }
                 }
                 catch (Exception)
                 {
