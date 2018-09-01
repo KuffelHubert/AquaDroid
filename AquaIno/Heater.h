@@ -1,12 +1,13 @@
 #pragma once
 #include "RelayOutput.h"
-class LedPwm : public RelayOutput
+class Heater : public RelayOutput
 {
 
 public:    
     uint8_t TurnOnTemperature;
     uint8_t TurnOffTemperature;
-    bool CheckTemperature(uint8_t temperature);
+    Heater(uint8_t pin);
+    bool CheckTemperature(float temperature);
     void SetOnTemperature(uint8_t temperature);
     void SetOffTemperature(uint8_t temperature);
 };

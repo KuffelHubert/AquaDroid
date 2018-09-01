@@ -75,7 +75,6 @@ bool RelayOutput::CheckTime(tmElements_t time)
 
 bool RelayOutput::Wlacz()
 {
-    Serial.println("wlaczam");
     digitalWrite(Pin, LOW);
     State = true;
     return true;
@@ -83,8 +82,6 @@ bool RelayOutput::Wlacz()
 
 bool RelayOutput::Wylacz()
 {
-    Serial.println("wylaczam");
-
     digitalWrite(Pin, HIGH);
     State = false;
     return true;

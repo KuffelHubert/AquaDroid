@@ -15,12 +15,24 @@ namespace AquaDroid
     public partial class RelayControl
     {
         private bool _initialized;
+        private ProgressDialog[] tonh_Dialog = new ProgressDialog[7];
+        private ProgressDialog[] tonm_Dialog = new ProgressDialog[7];
+        private ProgressDialog[] tofh_Dialog = new ProgressDialog[7];
+        private ProgressDialog[] tofm_Dialog = new ProgressDialog[7];
+        private ProgressDialog[] przejDialog = new ProgressDialog[2];
+        private ProgressDialog grzalkaWlaczDialog;
+        private ProgressDialog grzalkaWylaczDialog;
+        private bool _grzlkaWlaczIgnoreEvent;
+        private bool _grzlkaWylaczIgnoreEvent;
+        private bool[] _przejIgnoreEvent = new bool[2];
+        private bool[] _tonhIgnoreEvent = new bool[7];
+        private bool[] _tonmIgnoreEvent = new bool[7];
+        private bool[] _tofmIgnoreEvent = new bool[7];
+        private bool[] _tofhIgnoreEvent = new bool[7];
         private void InitButtons()
         {
             if (!_initialized)
             {
-                _initialized = true;
-
                 spinnerWlaczH[0] = (Spinner)FindViewById(Resource.Id.sprwlh2);
                 spinnerWlaczH[1] = (Spinner)FindViewById(Resource.Id.sprwlh3);
                 spinnerWlaczH[2] = (Spinner)FindViewById(Resource.Id.sprwlh4);
@@ -53,824 +65,136 @@ namespace AquaDroid
                 spinnerWylaczM[5] = (Spinner)FindViewById(Resource.Id.sprwylm7);
                 spinnerWylaczM[6] = (Spinner)FindViewById(Resource.Id.sprwylm8);
 
-                editTextPrzej[0] = (EditText)FindViewById(Resource.Id.etprz2);
-                editTextPrzej[0].Text = Retrieveset("tran1").ToString();
-                editTextPrzej[1] = (EditText)FindViewById(Resource.Id.etprz3);
-                editTextPrzej[1].Text = Retrieveset("tran2").ToString();
-                grzalkaWlacz = (EditText)FindViewById(Resource.Id.wlgrzalka);
-                grzalkaWlacz.Text = Retrieveset("temo").ToString();
-                grzalkaWylacz = (EditText)FindViewById(Resource.Id.wylgrzalka);
-                grzalkaWylacz.Text = Retrieveset("temf").ToString();
 
-                spinnerWlaczH[0].ItemSelected += RelayControl_ItemSelected;
-                spinnerWlaczH[1].ItemSelected += RelayControl_ItemSelected1;
-                spinnerWlaczH[2].ItemSelected += RelayControl_ItemSelected2;
-                spinnerWlaczH[3].ItemSelected += RelayControl_ItemSelected3;
-                spinnerWlaczH[4].ItemSelected += RelayControl_ItemSelected4;
-                spinnerWlaczH[5].ItemSelected += RelayControl_ItemSelected5;
-                spinnerWlaczH[6].ItemSelected += RelayControl_ItemSelected6;
-
-                spinnerWlaczM[0].ItemSelected += RelayControl_ItemSelected7;
-                spinnerWlaczM[1].ItemSelected += RelayControl_ItemSelected8;
-                spinnerWlaczM[2].ItemSelected += RelayControl_ItemSelected9;
-                spinnerWlaczM[3].ItemSelected += RelayControl_ItemSelected10;
-                spinnerWlaczM[4].ItemSelected += RelayControl_ItemSelected11;
-                spinnerWlaczM[5].ItemSelected += RelayControl_ItemSelected12;
-                spinnerWlaczM[6].ItemSelected += RelayControl_ItemSelected13;
-
-                spinnerWylaczH[0].ItemSelected += RelayControl_ItemSelected14;
-                spinnerWylaczH[1].ItemSelected += RelayControl_ItemSelected15;
-                spinnerWylaczH[2].ItemSelected += RelayControl_ItemSelected16;
-                spinnerWylaczH[3].ItemSelected += RelayControl_ItemSelected17;
-                spinnerWylaczH[4].ItemSelected += RelayControl_ItemSelected18;
-                spinnerWylaczH[5].ItemSelected += RelayControl_ItemSelected19;
-                spinnerWylaczH[6].ItemSelected += RelayControl_ItemSelected20;
-
-                spinnerWylaczM[0].ItemSelected += RelayControl_ItemSelected21;
-                spinnerWylaczM[1].ItemSelected += RelayControl_ItemSelected22;
-                spinnerWylaczM[2].ItemSelected += RelayControl_ItemSelected23;
-                spinnerWylaczM[3].ItemSelected += RelayControl_ItemSelected24;
-                spinnerWylaczM[4].ItemSelected += RelayControl_ItemSelected25;
-                spinnerWylaczM[5].ItemSelected += RelayControl_ItemSelected26;
-                spinnerWylaczM[6].ItemSelected += RelayControl_ItemSelected27;
-
-                editTextPrzej[0].TextChanged += RelayControl_TextChanged;
-                editTextPrzej[1].TextChanged += RelayControl_TextChanged1;
-
-                grzalkaWlacz.TextChanged += GrzalkaWlacz_TextChanged;
-                grzalkaWylacz.TextChanged += GrzalkaWylacz_TextChanged;
-
-
+                var minutesAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.minutes_array, Android.Resource.Layout.SimpleSpinnerItem);
+                minutesAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                var hourAdapter = ArrayAdapter.CreateFromResource(this, Resource.Array.hours_array, Android.Resource.Layout.SimpleSpinnerItem);
+                hourAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                 foreach (var spr in spinnerWlaczH)
                 {
-                    ArrayAdapter adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.hours_array, Android.Resource.Layout.SimpleSpinnerItem);
-                    adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-
-                    spr.Adapter = adapter;
+                    spr.Adapter = hourAdapter;
                 }
 
                 foreach (var spr in spinnerWylaczH)
                 {
-                    ArrayAdapter adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.hours_array, Android.Resource.Layout.SimpleSpinnerItem);
-                    adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-
-                    spr.Adapter = adapter;
+                    spr.Adapter = hourAdapter;
                 }
 
                 foreach (var spr in spinnerWlaczM)
                 {
-                    ArrayAdapter adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.minutes_array, Android.Resource.Layout.SimpleSpinnerItem);
-                    adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-
-                    spr.Adapter = adapter;
+                    spr.Adapter = minutesAdapter;
                 }
 
                 foreach (var spr in spinnerWylaczM)
                 {
-                    ArrayAdapter adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.minutes_array, Android.Resource.Layout.SimpleSpinnerItem);
-                    adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-
-                    spr.Adapter = adapter;
+                    spr.Adapter = minutesAdapter;
                 }
-
-
-                for (int i = 1; i <= 7; i++)
+                for (int i = 0; i < spinnerWylaczM.Length; i++)
                 {
-                    spinnerWlaczH[i - 1].SetSelection(Retrieveset("tonh" + i));
-                }
-                for (int i = 1; i <= 7; i++)
-                {
-                    spinnerWylaczH[i - 1].SetSelection(Retrieveset("tofh" + i));
-                }
-                for (int i = 1; i <= 7; i++)
-                {
-                    spinnerWlaczM[i - 1].SetSelection(Retrieveset("tonm" + i));
-                }
-                for (int i = 1; i <= 7; i++)
-                {
-                    spinnerWylaczM[i - 1].SetSelection(Retrieveset("tofm" + i));
-                }
-            }
-        }
-
-        private void GrzalkaWylacz_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 0;
-                    var bytes = Encoding.UTF8.GetBytes("temf" + index.ToString() + grzalkaWylacz.Text);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
+                    int currentIndex = i;
+                    spinnerWylaczM[i].ItemSelected += (obj, args) =>
                     {
-                        Saveset("temf" + index.ToString(), int.Parse(grzalkaWylacz.Text));
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void GrzalkaWlacz_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 0;
-                    var bytes = Encoding.UTF8.GetBytes("temo" + index.ToString() + grzalkaWlacz.Text);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
+                        if (_initialized && !_tofmIgnoreEvent[currentIndex])
+                        {
+                            tofm_Dialog[currentIndex] = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                            var index = currentIndex + 1;
+                            SendToArduino("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
+                        }
+                        _tofmIgnoreEvent[currentIndex] = false;
+                    };
+                    spinnerWylaczH[i].ItemSelected += (obj, args) =>
                     {
-                        Saveset("temo" + index.ToString(), int.Parse(grzalkaWlacz.Text));
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        protected void Saveset(string name, int value)
-        {
-            var prefs = Application.Context.GetSharedPreferences("AquaDroid", FileCreationMode.Private);
-            var prefEditor = prefs.Edit();
-            prefEditor.PutInt(name, value);
-            prefEditor.Commit();
-        }
-
-        protected int Retrieveset(string name)
-        {
-            //retreive 
-            var prefs = Application.Context.GetSharedPreferences("AquaDroid", FileCreationMode.Private);
-            return prefs.GetInt(name, 0);
-
-        }
-
-        private void RelayControl_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 0 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tran" + index.ToString() + editTextPrzej[0].Text);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
+                        if (_initialized && !_tofhIgnoreEvent[currentIndex])
+                        {
+                            tofh_Dialog[currentIndex] = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                            var index = currentIndex + 1;
+                            SendToArduino("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
+                        }
+                        _tofhIgnoreEvent[currentIndex] = false;
+                    };
+                    spinnerWlaczM[i].ItemSelected += (obj, args) =>
                     {
-                        Saveset("tran1", int.Parse(editTextPrzej[0].Text));
-                    }
-                    catch { }
+                        if (_initialized && !_tonmIgnoreEvent[currentIndex])
+                        {
+                            tonm_Dialog[currentIndex] = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                            var index = currentIndex + 1;
+                            SendToArduino("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
+                        }
+                        _tonmIgnoreEvent[currentIndex] = false;
+                    };
+                    spinnerWlaczH[i].ItemSelected += (obj, args) =>
+                    {
+                        if (_initialized && !_tonhIgnoreEvent[currentIndex])
+                        {
+                            tonh_Dialog[currentIndex] = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                            var index = currentIndex + 1;
+                            SendToArduino("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
+                        }
+                        _tonhIgnoreEvent[currentIndex] = false;
+                    };
                 }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
+
+                editTextPrzej[0] = (Spinner)FindViewById(Resource.Id.etprz2);
+                editTextPrzej[1] = (Spinner)FindViewById(Resource.Id.etprz3);
+                grzalkaWlacz = (Spinner)FindViewById(Resource.Id.wlgrzalka);
+                grzalkaWylacz = (Spinner)FindViewById(Resource.Id.wylgrzalka);
+
+                editTextPrzej[0].Adapter = minutesAdapter;
+                editTextPrzej[1].Adapter = minutesAdapter;
+                grzalkaWlacz.Adapter = minutesAdapter;
+                grzalkaWylacz.Adapter = minutesAdapter;
+
+                editTextPrzej[0].ItemSelected += RelayControl_ItemSelected; ;
+                editTextPrzej[1].ItemSelected += RelayControl_ItemSelected1;
+
+                grzalkaWlacz.ItemSelected += GrzalkaWlacz_ItemSelected; ;
+                grzalkaWylacz.ItemSelected += GrzalkaWylacz_ItemSelected; ;
             }
         }
 
-        private void RelayControl_TextChanged1(object sender, Android.Text.TextChangedEventArgs e)
+        private void GrzalkaWylacz_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            if (btSocket != null && isBtConnected == true)
+            if (_initialized && !_grzlkaWylaczIgnoreEvent)
             {
-                try
-                {
-                    var index = 1 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tran" + index.ToString() + editTextPrzej[1].Text);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tran" + index.ToString(), int.Parse(editTextPrzej[index - 1].Text));
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
+                grzalkaWylaczDialog = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                var index = 0;
+                SendToArduino("temf" + index.ToString() + grzalkaWylacz.SelectedItem);
+            };
+            _grzlkaWylaczIgnoreEvent = false;
         }
 
-        private void RelayControl_ItemSelected21(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void GrzalkaWlacz_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            if (btSocket != null && isBtConnected == true)
+            if (_initialized && !_grzlkaWlaczIgnoreEvent)
             {
-                try
-                {
-                    var index = 0 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected27(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 6 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected22(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 1 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected23(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 2 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected24(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 3 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected25(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 4 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected26(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 5 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofm" + index.ToString() + spinnerWylaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofm" + index.ToString(), spinnerWylaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected14(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 0 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected15(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 1 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected16(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 2 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected17(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 3 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected18(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 4 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected19(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 5 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected20(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 6 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tofh" + index.ToString() + spinnerWylaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tofh" + index.ToString(), spinnerWylaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected7(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 0 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected8(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 1 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected9(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 2 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected10(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 3 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected11(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 4 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected12(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 5 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected13(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 6 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonm" + index.ToString() + spinnerWlaczM[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonm" + index.ToString(), spinnerWlaczM[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 0 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
+                grzalkaWlaczDialog = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                var index = 0;
+                SendToArduino("temo" + index.ToString() + grzalkaWlacz.SelectedItem);
+            };
+            _grzlkaWlaczIgnoreEvent = false;
         }
 
         private void RelayControl_ItemSelected1(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            if (btSocket != null && isBtConnected == true)
+            if (_initialized && !_przejIgnoreEvent[1])
             {
-                try
-                {
-                    var index = 1 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
+                przejDialog[1] = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                var index = 1 + 1;
+                SendToArduino("tran" + index.ToString() + editTextPrzej[1].SelectedItem);
+            };
+            _przejIgnoreEvent[1] = false;
         }
 
-        private void RelayControl_ItemSelected2(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void RelayControl_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            if (btSocket != null && isBtConnected == true)
+            if (_initialized && !_przejIgnoreEvent[0])
             {
-                try
-                {
-                    var index = 2 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected3(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 3 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected4(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 4 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected5(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 5 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private void RelayControl_ItemSelected6(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            if (btSocket != null && isBtConnected == true)
-            {
-                try
-                {
-                    var index = 6 + 1;
-                    var bytes = Encoding.UTF8.GetBytes("tonh" + index.ToString() + spinnerWlaczH[index - 1].SelectedItem);
-                    btSocket.OutputStream.Write(bytes, 0, bytes.Length);
-                    try
-                    {
-                        Saveset("tonh" + index.ToString(), spinnerWlaczH[index - 1].SelectedItemPosition);
-                    }
-                    catch { }
-                }
-                catch (Exception)
-                {
-                    Toast.MakeText(Application.Context, "Error.", ToastLength.Long).Show();
-                }
-            }
+                przejDialog[0] = ProgressDialog.Show(this, "Zapisywanie, proszę czekać", "Czekaj!");
+                var index = 0 + 1;
+                string data = "tran" + index.ToString() + editTextPrzej[0].SelectedItem;
+                SendToArduino(data);
+            };
+            _przejIgnoreEvent[0] = false;
         }
     }
 

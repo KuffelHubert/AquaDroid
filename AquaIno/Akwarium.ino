@@ -14,8 +14,6 @@
 
 using namespace std;
 
-#define Heater A7;
-
 RelayOutput** Relays = new RelayOutput*[8];
 
 
@@ -33,29 +31,25 @@ void setup()
     sensors.begin();
     if (!SD.begin(chipSelect))
     {
-        Serial.println("initialization failed!");
-        while (1);
+        //while (1);
     }
-    Serial.println("initialization done.");
 
-    Relays[0] = new Heater(3);
-    Relays[1] = new LedPwm(4, 5);
-    Relays[2] = new LedPwm(7, 6);
+    Relays[0] = new Heater(4);
+    Relays[1] = new LedPwm(3, 5);
+    Relays[2] = new LedPwm(A1, 6);
     Relays[3] = new RelayOutput(8);
     Relays[4] = new RelayOutput(9);
     Relays[5] = new RelayOutput(10);
-    Relays[6] = new RelayOutput(A1);
-    Relays[7] = new RelayOutput(13);
+    Relays[6] = new RelayOutput(7);
+    Relays[7] = new RelayOutput(A3);
 
 
     if (!SD.exists(fileName))
     {
-        Serial.print("tworzenie pliku");
         SaveSettings();
     }
     else
     {
-        Serial.println("plik juz istnieje");
         ReadSettings();
     }
 }
@@ -63,74 +57,9 @@ void setup()
 // the loop function runs over and over again until power down or reset
 void loop()
 {
-    sensors.requestTemperatures(); //Pobranie temperatury czujnika
-    Serial.print("Aktualna temperatura: ");
-    uint8_t temperatura = sensors.getTempCByIndex(0);
+    sensors.requestTemperatures(); 
+    float temperatura = sensors.getTempCByIndex(0);
 
-    Serial.println(temperatura);
-    if (Serial.available())
-    {
-        String data = (String)Serial.readString();
-        Serial.println(data);
-        if (data.length() > 10)
-        {
-            return;
-        }
-        String action = data.substring(0, 4);
-        String indexString = data.substring(4, 5);
-        int index = indexString.toInt();
-        if (action == "tran")
-        {
-            int h = data.substring(5).toInt();
-            ((LedPwm*)Relays[index])->SetTransition(h);
-        }
-        else if (action == "data")
-        {
-        }
-        else if (action == "tofm")
-        {
-            int h = data.substring(5).toInt();
-            Relays[index]->SetOffMinute(h);
-        }
-        else if (action == "tofh")
-        {
-            int h = data.substring(5).toInt();
-            Relays[index]->SetOffHour(h);
-        }
-        else if (action == "tonm")
-        {
-            int h = data.substring(5).toInt();
-            Relays[index]->SetOnMinute(h);
-        }
-        else if (action == "tonh")
-        {
-            int h = data.substring(5).toInt();
-            Relays[index]->SetOnHour(h);
-        }
-        else if (action == "temo")
-        {
-            int h = data.substring(5).toInt();
-            ((Heater*)Relays[index])->SetOnTemperature(h);
-        }
-        else if (action == "temf")
-        {
-            int h = data.substring(5).toInt();
-            ((Heater*)Relays[index])->SetOffTemperature(h);
-        }
-        else if (action == "stan")
-        {
-            int value = data.substring(5).toInt();
-            if (value == 0)
-            {
-                Relays[index]->ToggleState(false);
-            }
-            else
-            {
-                Relays[index]->ToggleState(true);
-            }
-        }
-        SaveSettings();
-    }
     RTC.get();
 
     tmElements_t tm;
@@ -156,35 +85,90 @@ void loop()
         }
     }
 
-    delay(100);
+    if (Serial.available())
+    {
+        String data = (String)Serial.readString();
+        if (data.length() > 10)
+        {
+            return;
+        }
+        String action = data.substring(0, 4);
+        String indexString = data.substring(4, 5);
+        int index = indexString.toInt();
+        if (action == "tran")
+        {
+            int h = data.substring(5).toInt();
+            ((LedPwm*)Relays[index])->SetTransition(h);
+            Serial.println("tran" + (String)index + (String)((LedPwm*)Relays[index])->transitionPeriod);
+        }
+        else if (action == "data")
+        {
+            String dataActionString = "data";
+            String time = (String)tm.Hour + ":" + (String)tm.Minute + ";";
+            Serial.println(dataActionString + time + GatherData());
+        }
+        else if (action == "tofm")
+        {
+            int h = data.substring(5).toInt();
+            Relays[index]->SetOffMinute(h);
+            Serial.println("tofm" + (String)index + (String)Relays[index]->TurnOffMinute);
+        }
+        else if (action == "tofh")
+        {
+            int h = data.substring(5).toInt();
+            Relays[index]->SetOffHour(h);
+            Serial.println("tofh" + (String)index + (String)Relays[index]->TurnOffHour);
+        }
+        else if (action == "tonm")
+        {
+            int h = data.substring(5).toInt();
+            Relays[index]->SetOnMinute(h);
+            Serial.println("tonm" + (String)index + (String)Relays[index]->TurnOnMinute);
+        }
+        else if (action == "tonh")
+        {
+            int h = data.substring(5).toInt();
+            Relays[index]->SetOnHour(h);
+            Serial.println("tonh" + (String)index + (String)Relays[index]->TurnOnHour);
+        }
+        else if (action == "temo")
+        {
+            int h = data.substring(5).toInt();
+            ((Heater*)Relays[index])->SetOnTemperature(h);
+            Serial.println("temo" + (String)((Heater*)Relays[index])->TurnOnTemperature);
+        }
+        else if (action == "temf")
+        {
+            int h = data.substring(5).toInt();
+            ((Heater*)Relays[index])->SetOffTemperature(h);
+            Serial.println("temf" + (String)((Heater*)Relays[index])->TurnOffTemperature);
+        }
+        else if (action == "stan")
+        {
+            int value = data.substring(5).toInt();
+            if (value == 0)
+            {
+                Relays[index]->ToggleState(false);
+            }
+            else
+            {
+                Relays[index]->ToggleState(true);
+            }
+        }
+        SaveSettings();
+    }
+
+    delay(1000);
 }
 
 void SaveSettings()
 {
     SD.remove(fileName);
     File myFile = SD.open(fileName, FILE_WRITE);
-    for (size_t i = 0; i <= 7; i++)
-    {
-        if (i == 0)
-        {
-            myFile.println((String)((Heater*)Relays[i])->TurnOnTemperature + ";");
-            myFile.println((String)((Heater*)Relays[i])->TurnOffTemperature + ";");
-        }
-        else
-        {
-            myFile.println((String)Relays[i]->TurnOnHour + ";");
-            myFile.println((String)Relays[i]->TurnOnMinute + ";");
-            myFile.println((String)Relays[i]->TurnOffHour + ";");
-            myFile.println((String)Relays[i]->TurnOffMinute + ";");
-            if (i == 1 || i == 2)
-            {
-                myFile.println((String)((LedPwm*)Relays[i])->transitionPeriod + ";");
-            }
-        }
-    }
+    String data = GatherData();
+    myFile.println(data);
     myFile.flush();
     myFile.close();
-    Serial.print("zapisano ustawienia");
 }
 
 void ReadSettings()
@@ -222,4 +206,29 @@ void ReadSettings()
         }
     }
     myFile.close();
+}
+
+String GatherData()
+{
+    String data = "";
+    for (size_t i = 0; i <= 7; i++)
+    {
+        if (i == 0)
+        {
+            data += (String)((Heater*)Relays[i])->TurnOnTemperature + ";";
+            data += (String)((Heater*)Relays[i])->TurnOffTemperature + ";";
+        }
+        else
+        {
+            data += (String)Relays[i]->TurnOnHour + ";";
+            data += (String)Relays[i]->TurnOnMinute + ";";
+            data += (String)Relays[i]->TurnOffHour + ";";
+            data += (String)Relays[i]->TurnOffMinute + ";";
+            if (i == 1 || i == 2)
+            {
+                data += (String)((LedPwm*)Relays[i])->transitionPeriod + ";";
+            }
+        }
+    }
+    return data;
 }

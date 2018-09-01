@@ -2,6 +2,10 @@
 #include <TimeLib.h>
 #include "Arduino.h"
 
+
+int maxPwmValue = 180;
+int minutesInHour = 60;
+
 LedPwm::LedPwm(uint8_t pin, uint8_t pwmPin) : RelayOutput(pin)
 {
     PwmPin = pwmPin;
@@ -80,14 +84,13 @@ void LedPwm::CheckTime(tmElements_t time)
                 {
                     transitioning = false;
                 }
-                else if (PwmValue >= 180)
+                else if (PwmValue >= maxPwmValue)
                 {
                     PwmValue = 0;
                     digitalWrite(Pin, HIGH);
                     State = true;
                     transitioning = false;
                 }
-                Serial.println(PwmValue);
                 analogWrite(PwmPin, PwmValue);
             }
         }
@@ -128,6 +131,5 @@ long LedPwm::GetSeconds(tmElements_t time)
 
 void LedPwm::SetTransition(int transition)
 {
-    transitionPeriod = ((transition * 60) / 180) + 1;
-    Serial.println(transitionPeriod);
+    transitionPeriod = ((transition * minutesInHour) / maxPwmValue) + 1;
 }

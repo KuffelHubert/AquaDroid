@@ -1,15 +1,18 @@
 #include "Heater.h"
 #include <Arduino.h>
 
-bool Heater::CheckTemperature(uint8_t temperature) 
+Heater::Heater(uint8_t pin) : RelayOutput(pin)
+{ }
+
+bool Heater::CheckTemperature(float temperature) 
 {
     if (temperature > TurnOffTemperature)
     {
-        digitalWrite(Pin, LOW);
-    }
-    if (temperature < TurnOnTemperature)
-    {
         digitalWrite(Pin, HIGH);
+    }
+    else if (temperature < TurnOnTemperature)
+    {
+        digitalWrite(Pin, LOW);
     }
     return true;
 }

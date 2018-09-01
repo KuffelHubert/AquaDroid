@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:scrollbars="none"
     android:layout_weight="1">
     <TableLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <TableRow>
             <TextView
                 android:text="Wyjście"
@@ -26,10 +26,10 @@
             <TextView
                 android:text="Grzałka"
                 android:padding="3dip" />
-            <EditText
+            <Spinner
                 android:padding="3dip"
                 android:id="@+id/wlgrzalka" />
-            <EditText
+            <Spinner
                 android:padding="3dip"
                 android:id="@+id/wylgrzalka" />
             <TextView
@@ -42,7 +42,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -60,7 +60,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/sprwylm2" />
             </LinearLayout>
-            <EditText
+            <Spinner
                 android:padding="3dip"
                 android:id="@+id/etprz2" />
         </TableRow>
@@ -86,7 +86,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -104,7 +104,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/sprwylm3" />
             </LinearLayout>
-            <EditText
+            <Spinner
                 android:padding="3dip"
                 android:id="@+id/etprz3" />
         </TableRow>
@@ -130,7 +130,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -148,7 +148,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -174,7 +174,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -192,7 +192,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -218,7 +218,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -236,7 +236,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -262,7 +262,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -306,7 +306,7 @@
                 android:padding="3dip" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
@@ -324,7 +324,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="0dp"
