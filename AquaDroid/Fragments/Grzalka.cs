@@ -13,8 +13,8 @@ namespace AquaDroid.Fragments
 {
     public class Grzalka : Fragment
     {
-        EditText grzalkaWlacz;
-        EditText grzalkaWylacz;
+        Spinner grzalkaWlacz;
+        Spinner grzalkaWylacz;
         Spinner[] spinnerWlaczH = new Spinner[7];
         Spinner[] spinnerWlaczM = new Spinner[7];
         Spinner[] spinnerWylaczH = new Spinner[7];
@@ -33,8 +33,18 @@ namespace AquaDroid.Fragments
 
             Intent newint = this.Activity.Intent;
             address = newint.GetStringExtra("EXTRA_ADDRESS");
-
             new ConnectBT().Execute();
+        }
+
+        public override void OnViewCreated(View view, Bundle savedInstanceState)
+        {
+            base.OnViewCreated(view, savedInstanceState);
+            grzalkaWlacz = (Spinner)View.FindViewById(Resource.Id.wlgrzalka);
+            grzalkaWylacz = (Spinner)View.FindViewById(Resource.Id.wylgrzalka);
+            var minutesAdapter = ArrayAdapter.CreateFromResource(Activity, Resource.Array.minutes_array, Android.Resource.Layout.SimpleSpinnerItem);
+            minutesAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            grzalkaWlacz.Adapter = minutesAdapter;
+            grzalkaWylacz.Adapter = minutesAdapter;
         }
 
         public static Grzalka NewInstance()
