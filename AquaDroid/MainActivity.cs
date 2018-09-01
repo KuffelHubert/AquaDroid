@@ -6,15 +6,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Android.Content;
 using System.Linq;
+using Android.Content.PM; 
 
 namespace AquaDroid
 {
-    [Activity(Label = "AquaDroid", MainLauncher = true)]
+    [Activity(Label = "AquaDroid", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, Icon = "@drawable/Icon")]
     public class MainActivity : Activity
     {
         Button btnPaired;
         ListView devicelist;
-
+         
         private BluetoothAdapter myBluetooth = null;
         private List<BluetoothDevice> pairedDevices;
 
