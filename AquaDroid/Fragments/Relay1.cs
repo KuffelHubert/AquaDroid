@@ -11,7 +11,7 @@ using System.IO;
 
 namespace AquaDroid.Fragments
 {
-    public class Fragment1 : Fragment
+    public class Relay1 : Fragment
     {
         EditText grzalkaWlacz;
         EditText grzalkaWylacz;
@@ -37,20 +37,20 @@ namespace AquaDroid.Fragments
             new ConnectBT().Execute();
         }
 
-        public static Fragment1 NewInstance()
+        public static Relay1 NewInstance()
         {
-            var frag1 = new Fragment1 { Arguments = new Bundle() };
-            return frag1;
+            var relay1 = new Relay1 { Arguments = new Bundle() };
+            return relay1;
         }
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
-            return inflater.Inflate(Resource.Layout.fragment1, null);
+            return inflater.Inflate(Resource.Layout.frag_Relay1, null);
         }
 
-         private void Disconnect(object sender, EventArgs e)
+        private void Disconnect(object sender, EventArgs e)
         {
             if (btSocket != null) //If the btSocket is busy
             {

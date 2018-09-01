@@ -88,6 +88,12 @@ namespace AquaDroid
                     case Resource.Id.nav_home_2:
                         ListItemClicked(1);
                         break;
+                    case Resource.Id.nav_home_3:
+                        ListItemClicked(2);
+                        break;
+                    case Resource.Id.nav_home_4:
+                        ListItemClicked(3);
+                        break;
                 } 
 
                 drawerLayout.CloseDrawers();
@@ -218,10 +224,16 @@ namespace AquaDroid
             switch (position)
             {
                 case 0:
-                    fragment = Fragment1.NewInstance();
+                    fragment = Grzalka.NewInstance();
                     break;
                 case 1:
-                    fragment = Fragment2.NewInstance();
+                    fragment = PWM1.NewInstance();
+                    break;
+                case 2:
+                    fragment = PWM2.NewInstance();
+                    break;
+                case 3:
+                    fragment = Relay1.NewInstance();
                     break;
             }
 

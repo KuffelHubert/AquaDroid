@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -21,109 +21,7 @@
       <TextView
           android:text="Przej"
           android:padding="3dip" />
-    </TableRow>
-    <TableRow>
-      <TextView
-          android:text="Grzałka"
-          android:padding="3dip" />
-      <EditText
-          android:padding="3dip"
-          android:id="@+id/wlgrzalka" />
-      <EditText
-          android:padding="3dip"
-          android:id="@+id/wylgrzalka" />
-      <TextView
-          android:text="---"
-          android:padding="3dip" />
-    </TableRow>
-    <TableRow>
-      <TextView
-          android:text="PWM 1"
-          android:padding="3dip" />
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          android:layout_marginTop="0dp"
-          android:layout_marginBottom="0dp"
-          android:weightSum="1">
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwlh2" />
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwlm2" />
-      </LinearLayout>
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          android:layout_marginTop="0dp"
-          android:layout_marginBottom="0dp"
-          android:weightSum="1">
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwylh2" />
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwylm2" />
-      </LinearLayout>
-      <EditText
-          android:padding="3dip"
-          android:id="@+id/etprz2" />
-    </TableRow>
-    <TableRow>
-      <TextView
-          android:text="PWM 2"
-          android:padding="3dip" />
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          android:layout_marginTop="0dp"
-          android:layout_marginBottom="0dp"
-          android:weightSum="1">
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwlh3" />
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwlm3" />
-      </LinearLayout>
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          android:layout_marginTop="0dp"
-          android:layout_marginBottom="0dp"
-          android:weightSum="1">
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwylh3" />
-        <Spinner
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sprwylm3" />
-      </LinearLayout>
-      <EditText
-          android:padding="3dip"
-          android:id="@+id/etprz3" />
-    </TableRow>
+    </TableRow>  
     <TableRow>
       <TextView
           android:text="1"

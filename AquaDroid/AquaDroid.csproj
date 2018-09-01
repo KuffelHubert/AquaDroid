@@ -99,8 +99,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fragments\Fragment1.cs" />
-    <Compile Include="Fragments\Fragment2.cs" />
+    <Compile Include="Fragments\Grzalka.cs" />
+    <Compile Include="Fragments\Relay1.cs" />
+    <Compile Include="Fragments\PWM2.cs" />
+    <Compile Include="Fragments\PWM1.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="RelayControl.cs" />
     <Compile Include="RelayControl_Init.cs" />
@@ -115,11 +117,13 @@
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\layout\Relay.axml" />
-    <AndroidResource Include="Resources\layout\fragment2.axml" />
-    <AndroidResource Include="Resources\layout\fragment1.axml" />
+    <AndroidResource Include="Resources\layout\frag_PWM1.axml" />
+    <AndroidResource Include="Resources\layout\frag_Grzalka.axml" />
     <AndroidResource Include="Resources\layout\main2.axml" />
     <AndroidResource Include="Resources\layout\nav_header.axml" />
     <AndroidResource Include="Resources\layout\toolbar.axml" />
+    <AndroidResource Include="Resources\layout\frag_PWM2.axml" />
+    <AndroidResource Include="Resources\layout\frag_Relay1.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\values-v21\" />

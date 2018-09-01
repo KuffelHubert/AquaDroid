@@ -5,24 +5,20 @@
     <item
         android:id="@+id/nav_home_1"
         android:icon="@drawable/ic_home_1"
-        android:title="Home 1" />
+        android:title="Grzałka" />
     <item
         android:id="@+id/nav_home_2"
         android:icon="@drawable/ic_home_2"
-        android:title="Home 2" />
+        android:title="PWM1" />
+    <item
+        android:id="@+id/nav_home_3"
+        android:icon="@drawable/ic_home_2"
+        android:title="PWM2" />
+    <item
+        android:id="@+id/nav_home_4"
+        android:icon="@drawable/ic_home_2"
+        android:title="Relay1" />
   </group>
 
-  <item android:title="Sub items">
-    <menu>
-      <item
-          android:icon="@drawable/ic_home_1"
-          android:title="Sub item 1" 
-          android:checkable="true" />
-      <item
-          android:icon="@drawable/ic_home_2"
-          android:title="Sub item 2"
-          android:checkable="true"  />
-    </menu>
-  </item>
 
 </menu>
